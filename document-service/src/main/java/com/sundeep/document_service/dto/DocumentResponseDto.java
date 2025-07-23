@@ -13,6 +13,7 @@ public class DocumentResponseDto {
     private String fileName;
     private String fileType;
     private String uploadedBy;
+    private String userId;
     private String status;
     private LocalDateTime uploadedAt;
 }

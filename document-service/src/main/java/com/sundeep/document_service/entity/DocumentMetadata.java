@@ -25,6 +25,7 @@ public class DocumentMetadata {
     private String uploadedBy;
     private LocalDateTime uploadedAt;
 
+    private Long userId;
     @Enumerated(EnumType.STRING)
     private DocumentStatus status; // UPLOADED, EMBEDDING_IN_PROGRESS, INDEXED, FAILED
 }

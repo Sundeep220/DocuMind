@@ -44,6 +44,7 @@ public class DocumentService {
                 .fileType(file.getContentType())
                 .storagePath(path)
                 .uploadedBy(userProfile.getEmail())
+                .userId(userProfile.getId())
                 .uploadedAt(LocalDateTime.now())
                 .status(DocumentStatus.UPLOADED)
                 .build();
