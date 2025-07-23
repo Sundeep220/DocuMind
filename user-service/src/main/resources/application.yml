@@ -1,0 +1,67 @@
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: "user-service"
+#  config:
+#    import: "optional:configserver:http://localhost:8071"
+#  profiles:
+#    active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/DocuMind
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      platform: postgres
+
+
+jwt:
+  secret: akljfabjnjlnfonafjdnfljsnsvskvlfd
+  expiration-ms: 86400000 # 24 hours
+
+#eureka:
+#  instance:
+#    preferIpAddress: true #to tell eureka to use ip instead of hostname to register
+#  client:
+#    fetchRegistry: true
+#    registerWithEureka: true
+#    serviceUrl:
+#      defaultZone: http://localhost:8070/eureka/
+
+info:
+  app:
+    name: "user-service"
+    description: "User Service for DocuMind Project"
+    version: "1.0.0"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:   #to enable shutdown endpoint in actuator to let the application gracefully shutdown and deregister from eureka
+      access: "unrestricted"
+  info:
+    env:
+      enabled: true
+
+logging:
+  level:
+    com:
+      nextacademy:
+        user:
+          user_service: DEBUG
