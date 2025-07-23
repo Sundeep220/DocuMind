@@ -24,12 +24,10 @@ import java.util.List;
 @Slf4j
 public class DocumentService {
 
-    @Autowired
     private final DocumentRepository docRepo;
-    @Autowired
     private final FileStorageService fileStorage;
-    @Autowired
     private final KafkaProducerService kafkaProducer;
+
     @Autowired
     private UserServiceClient userService;
 

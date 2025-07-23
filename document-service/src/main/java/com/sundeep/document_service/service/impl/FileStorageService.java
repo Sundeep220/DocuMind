@@ -23,6 +23,11 @@ public class FileStorageService {
         Path filePath = uploadDir.resolve(fileName);
 
         try {
+            // Create upload directory if it doesn't exist
+            if (!Files.exists(uploadDir)) {
+                Files.createDirectories(uploadDir);
+            }
+
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
             return filePath.toString();
         } catch (IOException e) {
