@@ -117,7 +117,7 @@ public class UserController {
                     )
             )
     })
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(
             @Parameter(description = "ID of the user to fetch", example = "101")
             @PathVariable Long id,
@@ -178,7 +178,7 @@ public class UserController {
                     )
             )
     })
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<UserResponseDTO> getUserByEmail(
             @Valid
             @Parameter(

@@ -3,6 +3,10 @@
 server:
   port: 8082
 
+topics:
+  retry: 'doc-status-updater.RETRY'
+  dlt: 'doc-status-updater.DLT'
+
 spring:
   application:
     name: document-service
@@ -30,11 +34,17 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      bootstrap-servers: localhost:9092
+#      group-id: doc-test-consumer
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: doc-test-consumer
+      group-id: doc-status-updater
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 

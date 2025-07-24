@@ -4,6 +4,7 @@ from config import KAFKA_BOOTSTRAP_SERVERS, KAFKA_TOPIC, GROUP_ID
 from embedding_utils import process_and_embed_doc
 from pathlib import Path
 import struct
+from producer import send_status_update
 
 def start_kafka_consumer():
     consumer = KafkaConsumer(
@@ -31,6 +32,8 @@ def start_kafka_consumer():
             # print(f"[+] Received document {file_name} for vectorization.")
             print(f"Doc ID: {doc_id}, File Path: {file_path}, File Name: {file_name}, User ID: {user_id}")
             process_and_embed_doc(doc_id, file_path, file_name, user_id)
+            send_status_update(doc_id, "INDEXED")
 
         except Exception as e:
             print(f"[!] Error processing message: {e}")
+            send_status_update(doc_id, "FAILED")

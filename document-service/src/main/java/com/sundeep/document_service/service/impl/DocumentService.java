@@ -51,8 +51,18 @@ public class DocumentService {
 
         DocumentMetadata saved = docRepo.save(doc);
         kafkaProducer.sendDocumentEvent(saved);
-
+        
+        if(saved != null){
+            updateDocumentStatus(saved.getId(), DocumentStatus.EMBEDDING_IN_PROGRESS);
+        }
         return new DocumentUploadResponse(saved.getId(), "Document uploaded and processing started");
+    }
+
+    private void updateDocumentStatus(Long id, DocumentStatus status) {
+        DocumentMetadata doc = docRepo.findById(id)
+                .orElseThrow(() -> new DocumentNotFoundException("Document not found"));
+        doc.setStatus(status);
+        docRepo.save(doc);
     }
 
     public List<DocumentResponseDto> getMyDocuments(String jwtToken) {

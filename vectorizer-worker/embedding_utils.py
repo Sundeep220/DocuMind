@@ -6,7 +6,6 @@ from langchain_community.document_loaders import TextLoader, Docx2txtLoader, PyP
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from config import INDEX_BASE_PATH, EMBEDDING_MODEL_NAME
 from pathlib import Path
-import zipfile
 
 embedding_model = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 VECTOR_INDEXES_DIR = os.path.join(Path(__file__).resolve().parent.parent, INDEX_BASE_PATH)
@@ -63,6 +62,8 @@ def process_and_embed_doc(doc_id, file_path, file_name, user_id):
             json.dump(metadata, f, indent=4)
 
         print(f"[+] Vector store created at {index_path}")
+        
 
     except Exception as e:
         print(f"[!] Failed to vectorize document {file_name}: {e}")
+

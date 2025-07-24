@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Data
-public class DocumentStatusUpdateRequest {
+public class DocumentStatusEvent {
+    private Long documentId;
     private String status;
 }

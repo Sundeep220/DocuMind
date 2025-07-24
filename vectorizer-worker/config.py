@@ -5,3 +5,4 @@ GROUP_ID = "python-doc-test-consumer"
 INDEX_BASE_PATH = "vector_indexes"
 
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+PRODUCER_TOPIC="doc-status-events"
