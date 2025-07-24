@@ -34,5 +34,5 @@ replay_pid*
 vector_indexes/
 vectorizer-worker/__pycache__/
 chat-service/__pycache__/
-chat-service/.env
+.env
 
