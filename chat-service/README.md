@@ -10,3 +10,6 @@ chat-service/
 │
 ├── requirements.txt
 └── Dockerfile (optional)
+
+
+Run:  `uvicorn main:app --reload`

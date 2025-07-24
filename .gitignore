@@ -25,4 +25,11 @@ replay_pid*
 
 # exclude uploads folder
 /uploads
-/vectorizer-worker/.venv
+
+
+#exlcude venv 
+.venv/
+
+vector_indexes/
+vectorizer-worker/__pycache__/
+chat-service/__pycache__/

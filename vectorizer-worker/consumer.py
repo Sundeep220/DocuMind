@@ -25,12 +25,12 @@ def start_kafka_consumer():
         try:
             doc_id = event["id"]  # ✅ Corrected field name
             file_path = event["storagePath"].replace("\\", "/")
-            # file_path = event["storagePath"]
+            user_id = event["userId"]
             file_name = event["fileName"]
 
             # print(f"[+] Received document {file_name} for vectorization.")
-            print(f"Doc ID: {doc_id}, File Path: {file_path}, File Name: {file_name}")
-            process_and_embed_doc(doc_id, file_path, file_name)
+            print(f"Doc ID: {doc_id}, File Path: {file_path}, File Name: {file_name}, User ID: {user_id}")
+            process_and_embed_doc(doc_id, file_path, file_name, user_id)
 
         except Exception as e:
             print(f"[!] Error processing message: {e}")

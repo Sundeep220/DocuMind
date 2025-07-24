@@ -23,7 +23,7 @@ def create_conversational_chain(vector_store):
     try:
         model = get_llm()
 
-        retriever = vector_store.as_retriever(search_kwargs={"k": 10})
+        retriever = vector_store.as_retriever(search_kwargs={"k": 5})
         
 
         qa_conversational_chain = ConversationalRetrievalChain.from_llm(

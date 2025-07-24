@@ -11,7 +11,7 @@ import zipfile
 embedding_model = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 VECTOR_INDEXES_DIR = os.path.join(Path(__file__).resolve().parent.parent, INDEX_BASE_PATH)
 
-def process_and_embed_doc(doc_id, file_path, file_name):
+def process_and_embed_doc(doc_id, file_path, file_name, user_id):
     print("File Path: ", file_path)
     try:
         base_dir = Path(__file__).resolve().parent.parent
@@ -41,17 +41,21 @@ def process_and_embed_doc(doc_id, file_path, file_name):
         # os.makedirs(index_path, exist_ok=True)
 
         # ⬇️ Modified index path to be directly under 'vector_indexes/'
-        index_folder_name = f"{doc_id}_{file_name.replace(' ', '_')}"
-        index_path = os.path.join(VECTOR_INDEXES_DIR, index_folder_name)
+        # Directory structure: vector_indexes/<user_id>/<doc_id>_<file_name>/
+        safe_file_name = file_name.replace(" ", "_")
+        doc_folder_name = f"{doc_id}_{safe_file_name}"
+        index_path = os.path.join(VECTOR_INDEXES_DIR, str(user_id), doc_folder_name)
         os.makedirs(index_path, exist_ok=True)
 
         vector_store.save_local(index_path)
 
         # Save metadata
         metadata = {
+            "user_id": user_id,
             "doc_id": doc_id,
             "file_name": file_name,
             "original_path": file_path,
+            "page_content": "\n".join([doc.page_content for doc in docs]),
             "vector_count": len(chunks)
         }
 
