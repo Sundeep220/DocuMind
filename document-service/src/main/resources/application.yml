@@ -48,3 +48,25 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+
+  endpoint:
+    shutdown:   #to enable shutdown endpoint in actuator to let the application gracefully shutdown and deregister from eureka
+      access: "unrestricted"
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+

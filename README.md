@@ -244,3 +244,32 @@ I suggest this order:
 5. `gateway-service`
 
 Let me know and I’ll scaffold the first service step-by-step for you (with code).
+
+## Steps to run the app
+- Go to app folder directory
+    `cd <app_name>`
+- Create a virtual environment:
+    - Using pip:
+        `python -m venv <environment_name>`
+    - Using uv:
+        `uv venv`
+- Install all the dependency libraries:
+    - Using pip:
+        `pip install -r requirements.txt`
+    - Using uv:
+        - Install all libraries from requirements.txt
+            `uv pip install -r requirements.txt`
+        - Add the libraries to uv project.toml file to manage them using uv
+            `uv add -r ../requirements.txt`
+        - Bonus tip:
+            - If you want to add another dependency to your project
+                `uv add <dependency_name>`
+            - If you want to remove a dependency from your project
+                `uv remove <dependency_name>`
+            - If you want to update a dependency in your project
+                `uv update <dependency_name>`
+- Run the application:
+    - Using pip:
+        `uvicorn main:app --reload`
+    - Using uv:
+        `uv run uvicorn main:app --reload`

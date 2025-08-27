@@ -11,6 +11,9 @@ embedding_model = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 VECTOR_INDEXES_DIR = os.path.join(Path(__file__).resolve().parent.parent, INDEX_BASE_PATH)
 
 def process_and_embed_doc(doc_id, file_path, file_name, user_id):
+    """
+    Process and embed a document for vectorization.
+    """
     print("File Path: ", file_path)
     try:
         base_dir = Path(__file__).resolve().parent.parent

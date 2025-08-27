@@ -7,6 +7,9 @@ import struct
 from producer import send_status_update
 
 def start_kafka_consumer():
+    """
+    Start the Kafka consumer to listen for document events.
+    """
     consumer = KafkaConsumer(
         KAFKA_TOPIC,
         bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS,

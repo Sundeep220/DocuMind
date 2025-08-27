@@ -1,0 +1,5 @@
+build-docker-image-user-service:
+	docker build . -t sundeep2205/user-service:v1
+
+build-docker-image-document-service:
+	docker build . -t sundeep2205/document-service:v1
