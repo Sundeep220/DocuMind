@@ -1,3 +1,8 @@
+build-and-run-db:
+	docker run -d --name postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=DocuMind -p 5432:5432 postgres:15
+
+
+
 build-docker-image-user-service:
 	docker build . -t sundeep2205/user-service:v1
 

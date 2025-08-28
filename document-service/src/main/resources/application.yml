@@ -31,7 +31,7 @@ spring:
     topic:
       name: doc-upload
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS:${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}}
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 #    consumer:
@@ -41,7 +41,7 @@ spring:
 #      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
 #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     consumer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS:${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}}
       group-id: doc-status-updater
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -68,5 +68,13 @@ management:
   info:
     env:
       enabled: true
+
+user:
+  service:
+    url: ${USER_SERVICE_URL:http://localhost:8081}
+
+
+file:
+  upload-dir: /uploads
 
 

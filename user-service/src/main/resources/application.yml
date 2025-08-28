@@ -8,7 +8,7 @@ spring:
 #  config:
 #    import: "optional:configserver:http://localhost:8071"
 #  profiles:
-#    active: dev
+#    active: local
   datasource:
     url: jdbc:postgresql://localhost:5432/DocuMind
     username: postgres

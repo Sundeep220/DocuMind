@@ -15,3 +15,4 @@ def send_status_update(document_id, status):
     }
     producer.send(PRODUCER_TOPIC, key=document_id, value=event)
     producer.flush()
+    print("Event sent: ", event)

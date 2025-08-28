@@ -17,7 +17,12 @@ def process_and_embed_doc(doc_id, file_path, file_name, user_id):
     print("File Path: ", file_path)
     try:
         base_dir = Path(__file__).resolve().parent.parent
-        full_path = base_dir / file_path
+        print("Base Dir: ", base_dir)
+        # Always look inside project_root/uploads/
+        uploads_dir = base_dir / "uploads"
+        full_path = uploads_dir / Path(file_path).name
+
+        # full_path = base_dir / file_path
         print("Resolved Full Path: ", full_path)
 
         if not full_path.exists():
@@ -65,8 +70,11 @@ def process_and_embed_doc(doc_id, file_path, file_name, user_id):
             json.dump(metadata, f, indent=4)
 
         print(f"[+] Vector store created at {index_path}")
+
+        return True
         
 
     except Exception as e:
         print(f"[!] Failed to vectorize document {file_name}: {e}")
+        return False
 

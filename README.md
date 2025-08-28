@@ -245,7 +245,7 @@ I suggest this order:
 
 Let me know and I’ll scaffold the first service step-by-step for you (with code).
 
-## Steps to run the app
+## Steps to run the python app
 - Go to app folder directory
     `cd <app_name>`
 - Create a virtual environment:

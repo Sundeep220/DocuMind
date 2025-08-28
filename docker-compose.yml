@@ -1,6 +1,22 @@
-version: '2.1'
-
 services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: DocuMind
+    ports:
+      - "5432:5432"
+    networks:
+      - documind
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d DocuMind" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
   zoo2:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zoo2
@@ -16,6 +32,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
     networks:
       - documind
 
@@ -43,6 +60,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 10s
     networks:
       - documind
 
@@ -51,12 +69,23 @@ services:
     container_name: "user-service-ms"
     ports:
       - "8081:8081"
-    mem_limit: 1024m
+    deploy:
+      resources:
+        limits:
+          memory: "1024m"
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8081/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 10s
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/DocuMind
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
     networks:
       - documind
 
@@ -66,15 +95,31 @@ services:
     container_name: "document-service-ms"
     ports:
       - "8082:8082"
-    mem_limit: 1024m
+    deploy:
+      resources:
+        limits:
+          memory: "1024m"
     depends_on:
       kafkabroker:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 10s
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/DocuMind
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafkabroker:19092
+      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafkabroker:19092
+      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafkabroker:19092
+      USER_SERVICE_URL: http://user-service:8081
+    volumes:
+      - ./uploads:/uploads
     networks:
       - documind
 
