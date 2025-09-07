@@ -273,7 +273,56 @@ Here’s exactly what to do:
 
 ---
 
-⚡ That’s it — now all your libraries and your environment are running under Python 3.13, with your lockfile ensuring consistency.
+### **Option 1: Install from `requirements.txt` without a project**
+
+If you just want to create an environment and install everything:
+
+```bash
+uv pip install -r requirements.txt
+```
+
+This installs all dependencies listed in `requirements.txt` into uv’s environment.
+
+---
+
+### **Option 2: Add `requirements.txt` to a uv project**
+
+If you already did `uv init llms` (so you have a `pyproject.toml`), you can tell uv to add everything from the requirements file into the project:
+
+```bash
+uv add -r requirements.txt
+```
+
+This will:
+
+* Read your `requirements.txt`
+* Add all packages into `pyproject.toml`
+* Lock them into `uv.lock`
+
+---
+
+### **Option 3: Freeze installed packages**
+
+If you install manually and later want to save them back into a `requirements.txt`:
+
+```bash
+uv pip freeze > requirements.txt
+```
+
+---
+
+⚡ So the flow could be:
+
+1. Create `requirements.txt` (the one I generated for you earlier)
+2. Run:
+
+   ```bash
+   uv init llms
+   uv add -r requirements.txt
+   ```
+
+Now your uv project will have all dependencies tracked properly.
+
 
 ---
 
